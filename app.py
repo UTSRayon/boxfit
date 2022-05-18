@@ -5,7 +5,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def getIndex():  # put application's code here
-    return render_template("esqueleto.html")
+    return render_template("registro.html")
+
 
 
 

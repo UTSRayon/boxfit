@@ -14,7 +14,8 @@
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
-	<title>BoxFit</title>
+	{% block titulo %}
+	{% endblock %}
 
 	<link href="/static/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -281,6 +282,9 @@
 			</nav>
 
 			<main class="content">
+
+				{% block contenido %}
+				{% endblock %}
 
 			</main>
 
