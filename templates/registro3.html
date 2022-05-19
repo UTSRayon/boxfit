@@ -1,0 +1,36 @@
+{% extends 'esqueleto.html' %}
+{% block titulo %}
+<title>Registro de usuarios</title>
+
+{%  endblock %}
+{%  block contenido %}
+<div class="container-fluid p-0">
+
+					<div class="mb-3">
+						<h1 class="h3 d-inline align-middle">Parte Final</h1>
+						<div ><img src="/static/img/li.png" class="img-fluid" alt="400" width="400"></div>
+					</div>
+						<div class="col-12 col-lg-6">
+							<div class="cold-md card">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Ejemplo del ultimo registro</h5>
+								</div>
+								<div class="card-body">
+									<input class="form-control" type="text" placeholder="Nombre completo: Ignacio Cruz Garcia" readonly>
+									<input class="form-control" type="text" placeholder="Direccion: Calle S/N Barrio J" readonly>
+									<input class="form-control" type="text" placeholder="telefono:9192458575" readonly>
+									<input class="form-control" type="text" placeholder="Inscripcion: $300.00" readonly>
+									<input class="form-control" type="text" placeholder="Colegiatura: Box" readonly>
+								</div>
+							</div>
+						</div>
+							<!--button-->
+							<div>
+								<a href="registro2.html" class="btn btn-lg btn-primary">Finalizar</a>
+								<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
+							</div>
+
+
+</div>
+
+{%  endblock%}

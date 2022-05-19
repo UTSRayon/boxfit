@@ -1,0 +1,92 @@
+{% extends 'esqueleto.html' %}
+{% block titulo %}
+<title>Registro de usuarios</title>
+
+{%  endblock %}
+{%  block contenido %}
+<div class="container-fluid p-0">
+
+					<div class="mb-3">
+						<h3 class="h5 d-inline align-middle">Registro 2 de (3)</h3>
+						<div align="center"><img src="/static/img/im.png" class="img-fluid" alt="400" width="400"></div>
+
+					</div>
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<div class="card">
+								<div class="card-header bg-success">
+									<h5 class="card-title mb-0 text-light font-weight-light">Nombre</h5>
+								</div>
+								<div class="card-body">
+									<input type="text" class="form-control" placeholder="Nombre completo">
+								</div>
+							</div>
+
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Telefono</h5>
+								</div>
+								<div class="card-body">
+									<input type="number" class="form-control" placeholder=" ">
+								</div>
+							</div>
+
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Inscripciones</h5>
+								</div>
+								<div class="card-body">
+									<input class="form-control" type="text" placeholder="$300.00MX" readonly>
+								</div>
+							</div>
+						</div>
+
+
+
+								<div class="card-header">
+									<h5 class="card-title mb-0">Colegiaturas</h5>
+								</div>
+								<div class="card-body">
+									<select class="form-select mb-3">
+									  <option selected>Seleccionar colegiatura</option>
+									  <option>Box</option>
+									  <option>Spinin</option>
+									  <option>Three</option>
+									</select>
+								</div>
+
+								<div class="card-header">
+									<h5 class="card-title mb-0">Horario</h5>
+								</div>
+								<div class="card-body">
+									<select class="form-select mb-3">
+									  <option selected>Seleccionar un horario</option>
+									  <option>07:00 am</option>
+									  <option>08:00 am</option>
+									  <option>09:00 am</option>
+										<option>10:00 am</option>
+										<option>12:00 pm</option>
+										<option>01:00 pm</option>
+										<option>02:00 pm</option>
+										<option>04:00 pm</option>
+										<option>05:00 pm</option>
+										<option>06:00 pm</option>
+										<option>07:00 pm</option>
+										<option>08:00 pm</option>
+										<option>09:00 pm</option>
+										<option>10:00 pm</option>
+
+									</select>
+								</div>
+
+
+							<!--button-->
+							<div>
+								<a href="{{ url_for('re2')}}" class="btn btn-lg btn-primary">Continuar (2 de 3)</a>
+								<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
+							</div>
+
+
+</div>
+
+{%  endblock%}
