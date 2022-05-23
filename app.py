@@ -1,5 +1,6 @@
 from flask import Flask,render_template
 
+
 app = Flask(__name__)
 
 
@@ -14,6 +15,9 @@ def re():  # put application's code here
 @app.route('/re2')
 def re2():  # put application's code here
     return render_template("registro3.html")
+@app.route('/table')
+def table():  # put application's code here
+    return render_template("tabla.html")
 
 
 
