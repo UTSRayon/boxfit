@@ -4,60 +4,69 @@
 
 {%  endblock %}
 {%  block contenido %}
-<div class="container-fluid p-0">
-	<div class="mb-3">
-		<h1 class="h3 d-inline align-middle">Registro de usuarios</h1>
-			</div>
-					<div class="row">
-						<div class="col-12 col-lg-6">
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Nombre</h5>
-								</div>
-								<div class="card-body">
-									<input type="text" class="form-control" placeholder="Nombre(s)">
-								</div>
-								<div class="card-body">
-									<input type="text" class="form-control" placeholder="Apellidos">
-								</div>
-							</div>
+<main>
+	<div class="container-fluid p-0">
+		<div class="mb-3">
+			<h1 class="h3 d-inline align-middle">Registro de usuarios</h1>
+				</div>
+					 <form method="post" action="{{url_for('save_data')}}">
 
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Direccion</h5>
-								</div>
-								<div class="card-body">
-									<input type="text" class="form-control" placeholder="Escribe una direccion">
-								</div>
-							</div>
+						<div class="row">
+							<div class="col-12 col-lg-6">
+								<div class="card">
+									<div class="card-header">
+										<h5 class="card-title mb-0">Nombre</h5>
+									</div>
+									<div class="card-body">
+										<input class="form-control" id="nombre" name="nombre" type="text"  placeholder="Nombre(s)">
+									</div>
 
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Telefono</h5>
+									<div class="card-body">
+										<input class="form-control" id="apellido" name="apellido" type="text"  placeholder="Apellidos" />
+									</div>
 								</div>
-								<div class="card-body">
-									<input type="number" class="form-control" placeholder="Numero de telefono">
-								</div>
-							</div>
 
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Correo</h5>
+								<div class="card">
+									<div class="card-header">
+										<h5 class="card-title mb-0">Direccion</h5>
+									</div>
+									<div class="card-body">
+										<input class="form-control" id="direccion" name="direccion" type="text" placeholder="Escribe una direccion" />
+									</div>
 								</div>
-								<div class="card-body">
-									<input type="email" class="form-control" placeholder="Correo electronico">
+
+								<div class="card">
+									<div class="card-header">
+										<h5 class="card-title mb-0">Telefono</h5>
+									</div>
+									<div class="card-body">
+										<input class="form-control" id="telefono" name="telefono" type="number" placeholder="Numero de telefono" />
+									</div>
 								</div>
-							</div>
 
-							<!--button-->
-							<div>
-								<a href="{{ url_for('re')}}" class="btn btn-lg btn-primary">Continuar (1 de 3)</a>
-								<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
-							</div>
+								<div class="card">
+									<div class="card-header">
+										<h5 class="card-title mb-0">Correo</h5>
+									</div>
+									<div class="card-body">
+										<input class="form-control" id="correo" name="correo" type="email" placeholder="Correo electronico" />
+									</div>
+								</div>
+								<!--button-->
+								<div class="mt-4 mb-0">
+								<button class="btn btn-success">Registrar Continuar (1 de 3)</button>
 
+								</div>
+
+
+
+					 </form>
+
+							</div>
 						</div>
-					</div>
 
-</div>
+	</div>
+
+</main>
 
 {%  endblock%}
