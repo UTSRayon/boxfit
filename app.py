@@ -3,7 +3,7 @@ import pyrebase
 from flask import url_for
 import json
 from models.usuario import usuario
-
+from collections import OrderedDict
 
 
 
@@ -72,10 +72,15 @@ def save_data():
     #obtener el Id, nombre, telefono
     #lista = db.child("temperatura").child(str(id)).get().val()
     #lista=db.child("clientes").child(str("-N6scfjp2o-7cm-EGwE7")).get()
-    lista = db.child("clientes").order_by_child("correo").equal_to(correo).get()
-    print(lista.val())
+    lista = db.child("clientes").order_by_child("correo").equal_to(correo).limit_to_first(1).get().val()
+    #print(lista)
+    #print(dict(lista))
 
-    return render_template("registro2.html")
+
+
+
+
+    return render_template("registro2.html",lista_persona=lista.values())
 
 
 
