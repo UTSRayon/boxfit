@@ -21,6 +21,13 @@ config={
 firebase=pyrebase.initialize_app(config)
 db=firebase.database()
 
+#para consultas con condición
+def noquote(s):
+    return s
+pyrebase.pyrebase.quote = noquote
+
+
+
 
 app = Flask(__name__)
 
@@ -39,7 +46,7 @@ def getIndex():  # put application's code here
         lista_war_final=list(lista_wars)
         return render_template("registro.html",lista_cliente=lista_clientes.values(),lista_war_final=lista_war_final)
     except:
-        return render_template("registros.html")
+        return render_template("registro.html")
 
 #ruta para mostrar formulario de registro
 @app.route('/add')
@@ -61,6 +68,13 @@ def save_data():
     db.child("clientes").push(moon)
 
     #db.child("clientes").push({"nombre": nombre, "apellido":apellido, "direccion":direccion, "telefono":telefono, "correo":correo })
+
+    #obtener el Id, nombre, telefono
+    #lista = db.child("temperatura").child(str(id)).get().val()
+    #lista=db.child("clientes").child(str("-N6scfjp2o-7cm-EGwE7")).get()
+    lista = db.child("clientes").order_by_child("correo").equal_to(correo).get()
+    print(lista.val())
+
     return render_template("registro2.html")
 
 
