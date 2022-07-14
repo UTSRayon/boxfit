@@ -12,6 +12,7 @@
 						<div align="center"><img src="/static/img/im.png" class="img-fluid" alt="400" width="400"></div>
 
 					</div>
+					<form method="POST" action="{{url_for('blend')}}">
 					<div class="row">
 						<div class="col-12 col-lg-6">
 							<div class="card">
@@ -19,16 +20,19 @@
 									<h5 class="card-title mb-0 text-light font-weight-light">Nombre</h5>
 								</div>
 								<div class="card-body">
-									<input type="text" class="form-control" disabled value="{{ lista_persona.nombre }}">
+									<input class="form-control" id="nombre" name="nombre" type="text"  placeholder="Nombre(s)">
+									<!--<input type="text" class="form-control" disabled value="{{ lista_persona.nombre }}">-->
 								</div>
 							</div>
 
 							<div class="card">
 								<div class="card-header">
+
 									<h5 class="card-title mb-0">Telefono</h5>
 								</div>
 								<div class="card-body">
-									<input type="number" class="form-control" placeholder=" ">
+									<input class="form-control" id="telefono" name="telefono" type="number"  placeholder="numero">
+									<!--<input type="number" class="form-control" placeholder=" ">-->
 								</div>
 							</div>
 
@@ -40,6 +44,8 @@
 									<input class="form-control" type="text" placeholder="$300.00MX" readonly>
 								</div>
 							</div>
+
+
 						</div>
 
 
@@ -48,7 +54,8 @@
 									<h5 class="card-title mb-0">Colegiaturas</h5>
 								</div>
 								<div class="card-body">
-									<select class="form-select mb-3">
+									<!--<input class="form-control" id="colegiatura" name="colegiatura" type="text"  >-->
+									<select class="form-select mb-3" id="colegiatura" name="colegiatura">
 									  <option selected>Seleccionar colegiatura</option>
 									  <option>Box</option>
 									  <option>Spinin</option>
@@ -56,11 +63,14 @@
 									</select>
 								</div>
 
+
+
+
 								<div class="card-header">
 									<h5 class="card-title mb-0">Horario</h5>
 								</div>
 								<div class="card-body">
-									<select class="form-select mb-3">
+									<select class="form-select mb-3" id="horario" name="horario">
 									  <option selected>Seleccionar un horario</option>
 									  <option>07:00 am</option>
 									  <option>08:00 am</option>
@@ -83,7 +93,8 @@
 
 							<!--button-->
 							<div>
-								<a href="{{ url_for('re2')}}" class="btn btn-lg btn-primary">Continuar (2 de 3)</a>
+								<!--<a href="{{ url_for('re2')}}" class="btn btn-lg btn-primary">Continuar (2 de 3)</a>-->
+								<button class="btn btn-success">Registrar Continuar (1 de 3)</button>
 								<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 							</div>
 

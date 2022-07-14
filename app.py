@@ -2,7 +2,10 @@ from flask import Flask,render_template,request
 import pyrebase
 from flask import url_for
 import json
+
+from models.user2 import user2
 from models.usuario import usuario
+from datetime import date
 from collections import OrderedDict
 
 
@@ -75,12 +78,35 @@ def save_data():
     lista = db.child("clientes").order_by_child("correo").equal_to(correo).limit_to_first(1).get().val()
     #print(lista)
     #print(dict(lista))
-
-
-
-
-
     return render_template("registro2.html",lista_persona=lista.values())
+
+#Registro 2 --------------------------------------------------------------------------------------------------------------------------------
+@app.route('/opti')
+def opti():
+    return render_template("registro3html")
+
+#capturar datos y guardarlos en fb
+@app.route('/blend',methods=['POST'])
+def blend():
+    nombre=request.form.get('nombre')
+    telefono=request.form.get('telefono')
+    colegiatura= request.form.get('colegiatura')
+
+    #fecha = request.form.get('fecha')
+    today = date.today()
+    # dd/mm/YY
+    d1 = today.strftime("%d/%m/%Y")
+
+
+    horario= request.form.get('horario')
+    neew_clien=user2(nombre,telefono,colegiatura,d1,horario)
+    submit_form = json.dumps(neew_clien.__dict__)
+
+    moon = json.loads(submit_form)
+    db.child("leones").push(moon)
+    print("d1 =", d1)
+    #db.child("leones").push({"nombre": nombre,  "telefono":telefono})
+    return render_template("registro3.html")
 
 
 
