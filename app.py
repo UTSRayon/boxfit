@@ -3,6 +3,8 @@ import pyrebase
 from flask import url_for
 import json
 from models.usuario import usuario
+from models.user2 import user2
+
 from collections import OrderedDict
 
 
@@ -67,6 +69,8 @@ def save_data():
     moon = json.loads(submit_form)
     db.child("clientes").push(moon)
 
+
+
     #db.child("clientes").push({"nombre": nombre, "apellido":apellido, "direccion":direccion, "telefono":telefono, "correo":correo })
 
     #obtener el Id, nombre, telefono
@@ -75,12 +79,53 @@ def save_data():
     lista = db.child("clientes").order_by_child("correo").equal_to(correo).limit_to_first(1).get().val()
     #print(lista)
     #print(dict(lista))
+    #return render_template("registro2.html")
+    return render_template("registro2.html")
+
+#Registro 2 --------------------------------------------------------------------------------------------------------------------------------
+@app.route('/opti')
+def opti():
+    return render_template("registro3html")
+
+#capturar datos y guardarlos en fb
+@app.route('/blend',methods=['POST'])
+def blend():
+    nombre=request.form.get('nombre')
+    telefono=request.form.get('telefono')
+    neew_clien=user2(nombre,telefono)
+    submit_form = json.dumps(neew_clien.__dict__)
+
+    moon = json.loads(submit_form)
+    db.child("leones").push(moon)
+
+    #db.child("leones").push({"nombre": nombre,  "telefono":telefono})
+    return render_template("registro3.html")
+
+
+
+#@app.route('/save_2',methods=['POST'])
+#def save_2():
+    #nombre = request.form.get('nombre')
+    #telefono = request.form.get('telefono')
+    # colegiaturas=request.form.get('colegiaturas')
+    # horario=request.form.get('horario')
+
+    #neew_clien = usuario(nombre, telefono)
+    #submit_form = json.dumps(neew_clien.__dict__)
+    #moon = json.loads(submit_form)
+    #db.child("leones").push(moon)
+    #datos_completos = json.loads(submit_form)
+    #db.child("clientes").child(str(idclientes)).update(datos_completos)
+
+    #db.child("clientes").push(moon)
+
+    #db.child("clientes").push({"nombre": nombre, "apellido":apellido, "direccion":direccion, "telefono":telefono, "correo":correo })
+    #return render_template("registro3.html")
 
 
 
 
 
-    return render_template("registro2.html",lista_persona=lista.values())
 
 
 
