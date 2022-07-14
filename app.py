@@ -67,20 +67,18 @@ def save_data():
     moon = json.loads(submit_form)
     db.child("clientes").push(moon)
 
-    #db.child("clientes").push({"nombre": nombre, "apellido":apellido, "direccion":direccion, "telefono":telefono, "correo":correo })
 
-    #obtener el Id, nombre, telefono
-    #lista = db.child("temperatura").child(str(id)).get().val()
-    #lista=db.child("clientes").child(str("-N6scfjp2o-7cm-EGwE7")).get()
     lista = db.child("clientes").order_by_child("correo").equal_to(correo).limit_to_first(1).get().val()
-    #print(lista)
-    #print(dict(lista))
+
+    #tupla=list(lista.values())
+
+    for i in lista.keys():
+        print("-->",i)
+        for y in i:
+            print(">>",y)
 
 
-
-
-
-    return render_template("registro2.html",lista_persona=lista.values())
+    return render_template("registro2.html")
 
 
 
