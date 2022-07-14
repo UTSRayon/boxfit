@@ -7,12 +7,11 @@
 <div class="container-fluid p-0">
 
 					<div class="mb-3">
-						<h3 class="h5 d-inline align-middle">Registro 2 de (3)</h3>
+						<h3 class="h5 d-inline align-middle">Registro 2 de (3)  </h3>
 						<!--esta linea de codigo donde va la imagen sera remplasada por la imagen capturada en el paso 1 de 3-->
 						<div align="center"><img src="/static/img/im.png" class="img-fluid" alt="400" width="400"></div>
 
 					</div>
-				<form method="POST" action="{{url_for('blend')}}">
 					<div class="row">
 						<div class="col-12 col-lg-6">
 							<div class="card">
@@ -20,8 +19,7 @@
 									<h5 class="card-title mb-0 text-light font-weight-light">Nombre</h5>
 								</div>
 								<div class="card-body">
-									<input class="form-control" id="nombre" name="nombre" type="text" />
-
+									<input type="text" class="form-control" disabled value="{{ lista_persona.nombre }}">
 								</div>
 							</div>
 
@@ -30,7 +28,6 @@
 									<h5 class="card-title mb-0">Telefono</h5>
 								</div>
 								<div class="card-body">
-									<input class="form-control" id="telefono" name="telefono" type="number" />
 									<input type="number" class="form-control" placeholder=" ">
 								</div>
 							</div>
@@ -86,14 +83,11 @@
 
 							<!--button-->
 							<div>
-								<!--<a href="{{ url_for('re2')}}" class="btn btn-lg btn-primary">Continuar (2 de 3)</a>-->
-								<button class="btn btn-success">Registrar Continuar (2 de 3)</button>
+								<a href="{{ url_for('re2')}}" class="btn btn-lg btn-primary">Continuar (2 de 3)</a>
 								<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 							</div>
 
 
-</div>
-				</form>
 </div>
 
 {%  endblock%}
