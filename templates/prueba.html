@@ -1,0 +1,55 @@
+{% extends 'esqueleto.html' %}
+{% block titulo %}
+<title>Registro de usuarios</title>
+
+{%  endblock %}
+{%  block contenido %}
+<main>
+    <div class="container-fluid px-4">
+        <div class="card mb-4">
+            <div class="card-body">
+                <table class="table">
+                  <thead>
+                  <thead class="table-dark">
+                    <tr>
+                      <th >Nombre</th>
+                      <th >Telefono</th>
+                      <th scope="col">Inscripciones</th>
+                      <th scope="col">Colegiaturas</th>
+                        <th scope="col">Horario</th>
+                        <th scope="col">fecha</th>
+                    </tr>
+                  </thead>
+
+                  <tbody class="table-group-divider">
+                   <!-- aca colocaremos los datos de firebase-->
+                       {% set contador=namespace(value=0) %}
+                       {% for datos in elementos_clientes %}
+                    <tr>
+
+                      <td>{{ datos.nombre }}</td>
+                      <td>{{ datos.telefono }}</td>
+                      <td>{{ datos.inscripcion }}</td>
+                        <td>{{ datos.colegiatura }}</td>
+                        <td>{{ datos.horario }}</td>
+                        <td>{{ datos.fecha }}</td>
+
+                        <!--podria descomentar este boton y actualizarlo a este proyecto-->
+                            <!--<td>
+
+                                <a class="dltBtn btn btn-danger" data-id="{{ lista_war_final[contador.value] }}" href="javascript:void(0)">Eliminar</a>
+                                <a class="actualizar btn btn-success" data-id="{{ lista_war_final[contador.value] }}" href="javascript:void(0)">Actualizar</a>
+                            </td>-->
+
+                    </tr>
+                  {% set contador.value=contador.value +1 %}
+                        {%endfor%}
+
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+{%  endblock%}

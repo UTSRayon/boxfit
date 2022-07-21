@@ -1,4 +1,4 @@
-$(document).ready(function()
+$(document).addEventListener(function()
 {
     $('.dltBtn').click(function(e){
     e.preventDefault();
@@ -21,7 +21,7 @@ $(document).ready(function()
                     className: "btn-danger",
                     callback: function() {
                     $.ajax({
-                    url: '/eliminar_persona',
+                    url: '/eliminar',
                     data: {id:id}
                             })
                 //Si todo ha ido bien...

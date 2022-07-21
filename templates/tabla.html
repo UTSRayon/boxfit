@@ -30,11 +30,16 @@
 
 
                        <th>Nombre Completo</th>
-                        <th>Telefono</th>
-                         <th>Inscripcion</th>
-                         <th>Colegiatura</th>
-                        <th><input type="checkbox" id="checkall" /></th>
-                       <th><input type="checkbox" id="checthis" /></th>
+                        <th>apellido</th>
+                            <th>direccion</th>
+                         <th>telefono</th>
+                         <th>correo</th>
+                         <th>blabla</th>
+                        <!--<th><input type="nombre" id="nombre" /></th>
+                       <th><input type="apellido" id="apellido" /></th>
+                         <th><input type="direccion" id="direccion" /></th>
+                            <th><input type="telefono" id="telefono" /></th>
+                            <th><input type="correo" id="correo" /></th>-->
 
 
                           <th>Edit</th>
@@ -43,18 +48,24 @@
                        </thead>
                        <tbody>
                        <!-- aca colocaremos los datos de firebase-->
-                       {% for datos in lista_clientes %}
+                       {% set contador=namespace(value=0) %}
+                       {% for datos in elementos_clientes %}
                             <tr>
+
                                 <td>{{ datos.nombre }}</td>
                                 <td>{{ datos.apellido }}</td>
-                                <td>{{ datos.telefono }}</td>
-                                <td>{{ datos.inscripcion }}</td>
-                                <td>{{ datos.colegiatura }}</td>
+                                <td>{{ datos.direccion }}</td>
+                                 <td>{{ datos.telefono }}</td>
+                                 <td>{{ datos.correo }}</td>
+                                <td><input type="checkbox" class="checkthis" /></td>
+
+                                <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                                <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
 
 
 
                             </tr>
-
+                            {% set contador.value=contador.value +1 %}
                         {%endfor%}
 
 
@@ -78,6 +89,7 @@
             </div>
         </div>
     </div>
+
 
 </main>
 

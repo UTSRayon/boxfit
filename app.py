@@ -1,10 +1,11 @@
 from flask import Flask,render_template,request
+from flask import redirect
 import pyrebase
 from flask import url_for
 import json
 
 from models.user2 import user2
-from models.usuario import usuario
+from models.usuario import Usuario
 from datetime import date
 from collections import OrderedDict
 
@@ -34,11 +35,13 @@ pyrebase.pyrebase.quote = noquote
 
 app = Flask(__name__)
 
-@app.route('/prueba')
-def prueba():
-    lista_clientes=db.child("clientes").get().val()
-
-    return render_template("tabla.html",elementos_clientes=lista_clientes.values())
+@app.route('/table')
+def table():
+    lista_clientes=db.child("leones").get().val()
+    try:
+        return render_template("prueba.html", elementos_clientes=lista_clientes.values())
+    except:
+        return render_template('prueba.html')
 
 @app.route('/')
 def getIndex():  # put application's code here
@@ -64,11 +67,11 @@ def save_data():
     direccion=request.form.get('direccion')
     telefono=request.form.get('telefono')
     correo=request.form.get('correo')
-    neew_clien=usuario(nombre,apellido,direccion,telefono,correo)
+    neew_clien=Usuario(nombre,apellido,direccion,telefono,correo)
     submit_form =json.dumps(neew_clien.__dict__)
-
     moon = json.loads(submit_form)
     db.child("clientes").push(moon)
+    #return redirect(url_for('tabla'))
 
     #db.child("clientes").push({"nombre": nombre, "apellido":apellido, "direccion":direccion, "telefono":telefono, "correo":correo })
 
@@ -90,6 +93,7 @@ def opti():
 def blend():
     nombre=request.form.get('nombre')
     telefono=request.form.get('telefono')
+    inscripcion = request.form.get('inscripcion')
     colegiatura= request.form.get('colegiatura')
 
     #fecha = request.form.get('fecha')
@@ -99,7 +103,7 @@ def blend():
 
 
     horario= request.form.get('horario')
-    neew_clien=user2(nombre,telefono,colegiatura,d1,horario)
+    neew_clien=user2(nombre,telefono,inscripcion,colegiatura,d1,horario)
     submit_form = json.dumps(neew_clien.__dict__)
 
     moon = json.loads(submit_form)
@@ -108,6 +112,13 @@ def blend():
     #db.child("leones").push({"nombre": nombre,  "telefono":telefono})
     return render_template("registro3.html")
 
+
+#eliminar registros de la tabla
+@app.route('/eliminar/',methods=["GET"])
+def eliminiar():
+    id= request.args.get("id")
+    db.child("clientes").child(str(id)).remove()
+    return redirect(url_for('table'))
 
 
 
@@ -119,10 +130,14 @@ def re():  # put application's code here
 @app.route('/re2')
 def re2():  # put application's code here
     return render_template("registro3.html")
-@app.route('/table')
-def table():  # put application's code here
-    return render_template("tabla.html")
+#@app.route('/table')
+#def table():  # put application's code here
+    #return render_template("tabla.html")
 
+
+@app.route('/magic')
+def magic():  # put application's code here
+    return render_template("prueba.html")
 
 
 if __name__ == '__main__':
