@@ -12,13 +12,18 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
-	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+
 
 	{% block titulo %}
 	{% endblock %}
 
-	<link href="/static/css/app.css" rel="stylesheet">
+	<link href="static/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    {% block codigocss %}
+
+	{% endblock %}
+
 </head>
 
 <body>
@@ -42,7 +47,7 @@
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Consulta</span>
+              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Consulta de Clientes</span>
             </a>
 					</li>
 
@@ -265,7 +270,7 @@
               </a>
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
+                <img src="static/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark">Charles Hall</span>
               </a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
@@ -293,32 +298,17 @@
 					<div class="row text-muted">
 						<div class="col-6 text-start">
 							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> &copy;
+								<a class="text-muted" href="#" target="_blank"><strong>BoxFit</strong></a> &copy;
 							</p>
 						</div>
-						<div class="col-6 text-end">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-								</li>
-							</ul>
-						</div>
+
 					</div>
 				</div>
 			</footer>
 		</div>
 	</div>
 
-	<script src="js/app.js"></script>
+	<script src="/static/js/app.js"></script>
 
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
@@ -544,6 +534,10 @@
 
 {%block eliminar_ventana%}
 
+{%endblock%}
+
+
+{%block codigojs%}
 {%endblock%}
 
 </body>

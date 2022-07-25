@@ -1,28 +1,76 @@
 {% extends 'esqueleto.html' %}
 {% block titulo %}
 <title>Registro de usuarios</title>
-
 {%  endblock %}
+
+
+{% block codigocss %}
+ <style>
+ #pageloader
+{
+  background: rgba( 255, 255, 255, 0.8 );
+  display: none;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+
+#pageloader img
+{
+  left: 35%;
+  margin-left: -32px;
+  margin-top: -32px;
+  position: absolute;
+  top: 25%;
+}
+ </style>
+{%  endblock %}
+
+
+
+
 {%  block contenido %}
 <main>
 	<div class="container-fluid p-0">
-		<div class="mb-3">
-			<h1 class="h3 d-inline align-middle">Registro de usuarios</h1>
+
+            <!-- barras de progreso-->
+
+            <div id="pageloader">
+               <img src="static/img/carga.gif" alt="processing..." />
+            </div>
+            <!-- barras de progreso-->
+
+
+		        <div class="mb-3">
+			        <h1 class="h3 d-inline align-middle">Registro de usuarios</h1>
 				</div>
-					 <form method="POST" action="{{url_for('save_data')}}">
+					 <form method="POST" id="myForm" enctype="multipart/form-data" action="{{url_for('save_data')}}">
 
 						<div class="row">
+
+                            <!-- primera columna -->
+                            <div class="col-12 col-lg-6"><!-- segunda columna d ela foto -->
+
+                                <div class="m-5" id="results"><h4 class="text-muted">Su imagen aparecerá aquí</h4></div>
+
+                                <div class="m-5" id="my_camera"></div>
+                                <form>
+                                    <input type=button class="btn btn-success" value="Tomar Fotografía" onClick="take_snapshot()">
+                                </form>
+                            </div>
+                            <!-- segunda columna-->
 							<div class="col-12 col-lg-6">
 								<div class="card">
 									<div class="card-header">
 										<h5 class="card-title mb-0">Nombre</h5>
 									</div>
 									<div class="card-body">
-										<input class="form-control" id="nombre" name="nombre" type="text"  placeholder="Nombre(s)">
+										<input class="form-control" id="nombre" name="nombre" type="text"  placeholder="Nombre(s)" required>
 									</div>
 
 									<div class="card-body">
-										<input class="form-control" id="apellido" name="apellido" type="text"  placeholder="Apellidos" />
+										<input class="form-control" id="apellido" name="apellido" type="text"  placeholder="Apellidos" required>
 									</div>
 								</div>
 
@@ -31,7 +79,7 @@
 										<h5 class="card-title mb-0">Direccion</h5>
 									</div>
 									<div class="card-body">
-										<input class="form-control" id="direccion" name="direccion" type="text" placeholder="Escribe una direccion" />
+										<input class="form-control" id="direccion" name="direccion" type="text" placeholder="Escribe una direccion" required>
 									</div>
 								</div>
 
@@ -40,7 +88,7 @@
 										<h5 class="card-title mb-0">Telefono</h5>
 									</div>
 									<div class="card-body">
-										<input class="form-control" id="telefono" name="telefono" type="number" placeholder="Numero de telefono" />
+										<input class="form-control" id="telefono" name="telefono" type="number"  required minlength="10" maxlength="10" placeholder="Numero de telefono" required>
 									</div>
 								</div>
 
@@ -49,22 +97,143 @@
 										<h5 class="card-title mb-0">Correo</h5>
 									</div>
 									<div class="card-body">
-										<input class="form-control" id="correo" name="correo" type="email" placeholder="Correo electronico" />
+										<input class="form-control" id="correo" name="correo" type="email" placeholder="Correo electronico" required>
 									</div>
 								</div>
+                                <input type="file" name="foto" id="foto" value="asd" required >
+
 								<!--button-->
 								<div class="mt-4 mb-0">
-								<button class="btn btn-success">Registrar Continuar (1 de 3)</button>
-
+								    <button class="btn btn-success">Registrar Continuar (1 de 3)</button>
 								</div>
+
+                               </div>
+
+
+
+                        </div>
 
 					 </form>
 
-							</div>
-						</div>
 
 	</div>
+
+
 
 </main>
 
 {%  endblock%}
+
+{% block codigojs %}
+    	<script type="text/javascript" src="static/js/webcam.min.js"></script>
+        <script >
+            Webcam.set({
+                width: 590,
+                height: 440,
+                image_format: 'jpeg',
+                jpeg_quality: 100
+            });
+            Webcam.attach( '#my_camera' );
+        </script>
+    	<script >
+            function take_snapshot() {
+                // take snapshot and get image data
+                Webcam.snap( function(data_uri) {
+                    // display results in page
+                    document.getElementById('results').innerHTML =
+                        '<h4 class="text-muted">La fotografía del usuario:</h4>' +
+                        '<img name="canvasimg" id="canvasimg" src="'+data_uri+'"/ >';
+                  //  console.log("valor:"+data_uri)
+
+                    var blob=dataURItoBlob(data_uri)
+                    var firma=new File([blob],"foto.jpg",{type: 'image/jpg'})
+
+                    const fileInput = document.getElementById('foto')
+
+                    const dataTransfer = new DataTransfer()
+
+                    const file = new File([blob], 'mifoto.jpg', {type: 'image/jpg'})
+
+                    dataTransfer.items.add(file)
+
+                    fileInput.files = dataTransfer.files
+
+
+
+
+
+
+                   //-----
+
+                } );
+            }
+        </script>
+
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("myForm").addEventListener('submit', validarFormulario);
+    });
+
+    function validarFormulario(evento) {
+      evento.preventDefault();
+
+      let myVar3 = document.body.contains(document.getElementById("canvasimg"));
+
+      if(!myVar3)
+      {
+        alert('No has tomado la foto');
+
+        return;
+      }
+
+      /*
+      //var usuario = document.getElementById("canvasimg").src.length;
+        console.log(document.getElementById("canvasimg").src.length)
+        //document.getElementById("canvasimg").src.length < 100
+      if(document.getElementById("canvasimg").src.length < 100) {
+        alert('No has tomado la foto');
+        console.log("No has tomado la foto");
+        return;
+      }*/
+      this.submit();
+    }
+
+
+    function dataURItoBlob(dataURI) {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    var byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataURI.split(',')[1]);
+    else
+        byteString = unescape(dataURI.split(',')[1]);
+
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ia], { type: mimeString });
+    }
+
+    </script>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+      $("#myForm").on("submit", function(){
+
+        $("#pageloader").fadeIn();
+
+      });//submit
+    });//document ready
+    </script>
+
+{% endblock %}

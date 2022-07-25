@@ -1,37 +1,116 @@
 {% extends 'esqueleto.html' %}
-{% block titulo %}
-<title>Registro de usuarios</title>
 
+{% block titulo %}
+    <title>Registro de usuarios</title>
 {%  endblock %}
+
+{% block codigocss %}
+    <style>
+    .card {
+      border-top-width: 1px;
+      border-right-width: 1px;
+      border-bottom-width: 1px;
+      border-left-width: 1px;
+        border-color: #0a0a0a;
+    }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+
+
 {%  block contenido %}
 <div class="container-fluid p-0">
-
-					<div class="mb-3">
-						<h1 class="h3 d-inline align-middle">Parte Final</h1>
-						<!--esta linea de codigo donde va la imagen sera remplasada por la imagen capturada en el paso 1 de 3-->
-						<div ><img src="/static/img/li.png" class="img-fluid" alt="400" width="400"></div>
+                    <div class="card-header m-5">
+						<h2 class="text-center">Registro Exitoso</h2>
 					</div>
-						<div class="col-12 col-lg-6">
-							<div class="cold-md card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Ejemplo del ultimo registro</h5>
-								</div>
-								<div class="card-body">
-									<input class="form-control" type="text" placeholder="Nombre completo: Ignacio Cruz Garcia" readonly>
-									<input class="form-control" type="text" placeholder="Direccion: Calle S/N Barrio J" readonly>
-									<input class="form-control" type="text" placeholder="telefono:9192458575" readonly>
-									<input class="form-control" type="text" placeholder="Inscripcion: $300.00" readonly>
-									<input class="form-control" type="text" placeholder="Colegiatura: Box" readonly>
-								</div>
-							</div>
-						</div>
-							<!--button-->
-							<div>
-								<a href="{{ url_for('table')}}" class="btn btn-lg btn-primary">Finalizar</a>
-								<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
-							</div>
+
+
+
+
+
+                    <div id="html-content-holder"  class="row m-5">
+                        <div class="col-md-4 d-flex justify-content-center">
+                            <div class="card" style="width: 23rem;" style="">
+
+                              <img src="data:image/jpeg;base64, {{ imagen_perfil }}"  class="img-fluid" alt="...">
+                              <div class="card-body">
+                                <h1 class="card-title">{{ persona_datos[4] }} {{ persona_datos[1] }}</h1>
+                                <p class="card-text"><span class="fa fa-map-marker"></span> Dirección: {{ persona_datos[3] }}</p>
+                                <p class="card-text"><span class="fa fa-phone"></span> Teléfono: {{ persona_datos[5] }}</p>
+                                <p class="card-text"><span class="fa fa-envelope"></span> Correo: {{ persona_datos[2] }}</p>
+
+                              </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-flex justify-content-center">
+                              <div class="card" style="width: 23rem;">
+
+                                    {% set fecha_inicial=persona_actividades[1].split(" ") %}
+                                  <div class="text-center">
+                                    <img  src="{{ qrcode(codigoqr) }}" class="img-fluid" width="75%">
+                                  </div>
+                                  <div class="card-body">
+                                    <h5 class="card-title"><span class="fa fa-calendar"></span> Fecha de inicio: {{ fecha_inicial[0] }}</h5>
+                                    <p class="card-text"><span class="fa fa-heart"></span> Área: {{ persona_actividades[0] }}</p>
+                                    <p class="card-text"><span class="fa fa-money"></span> Colegiatura: ${{ persona_actividades[4] }}</p>
+                                    <p class="card-text"><span class="fa fa-clock-o"></span> Horario: {{ persona_actividades[2] }}</p>
+
+
+                                  </div>
+                                </div>
+                        </div>
+
+                        <div class="col-md-4 d-flex justify-content-center">
+                            <p class="fs-2 align-self-end">Recorte su credencial por los bordes</p>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+
+                    <input id="btn_convert" type="button" value="Generar Credencial" class="btn btn-success  btn-lg"/>
+
+
+
+
+
+
+
+
+
+
 
 
 </div>
 
 {%  endblock%}
+
+{% block codigojs %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <script>
+     document.getElementById("btn_convert").addEventListener("click", function() {
+		html2canvas(document.getElementById("html-content-holder"),
+			{
+				allowTaint: true,
+				useCORS: true
+			}).then(function (canvas) {
+				var anchorTag = document.createElement("a");
+				document.body.appendChild(anchorTag);
+			//	document.getElementById("previewImg").appendChild(canvas);
+				anchorTag.download = "credencial.jpg";
+				anchorTag.href = canvas.toDataURL();
+				anchorTag.target = '_blank';
+				anchorTag.click();
+			});
+  });
+    </script>
+{% endblock %}

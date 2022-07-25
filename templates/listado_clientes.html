@@ -1,0 +1,76 @@
+{% extends 'esqueleto.html' %}
+
+{% block titulo %}
+    <title>Listado de Clientes</title>
+{%  endblock %}
+
+{% block codigocss %}
+     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="static/css/estilos.css" rel="stylesheet">
+{% endblock %}
+
+
+{%  block contenido %}
+    <main>
+	    <div class="container-fluid px-4">
+            <h1 class="mt-4">Clientes BoxFit</h1>
+
+            <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Listado de clientes
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Hora</th>
+                                            <th>Nombre de la Persona</th>
+                                            <th>Temperatura</th>
+                                            <th>Opciones</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Hora</th>
+                                            <th>Nombre de la Persona</th>
+                                            <th>Temperatura</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+
+                                        <tr>
+                                            <td>Fecha</td>
+                                            <td>Hora</td>
+                                            <td>Nombre de la Persona</td>
+                                            <td>Temperatura</td>
+                                            <td>Opciones</td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block codigojs %}
+
+          <script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+     <script src="/static/js/datatables-simple-demo.js"></script>
+
+{% endblock %}
