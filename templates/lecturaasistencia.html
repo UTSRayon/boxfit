@@ -1,0 +1,173 @@
+{% extends 'esqueleto.html' %}
+{% block titulo %}
+    <title>Registro de asistencia</title>
+{%  endblock %}
+
+{% block codigocss %}
+    <style>
+      .result{
+        background-color: green;
+        color:#fff;
+        padding:20px;
+      }
+      .row{
+        display:flex;
+      }
+</style>
+{% endblock %}
+
+
+{%  block contenido %}
+
+    	<div class="main" >
+            <div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3">Registro de Asistencia</h1>
+                         <div class="row">
+                              <div class="col">
+                                <div style="width:400px;" id="reader"></div>
+                              </div>
+                              <div class="col" style="padding:30px;">
+
+                                  <form id="form1" method="get" action="{{url_for('informacion')}}">
+                                      <label>Código de Asistencia</label>
+                                      <input type="text" name="qr" required id="qr">
+
+                                  </form>
+
+                              </div>
+                        </div>
+
+
+                        <div class="row mt-5">
+                                <a href="{{ url_for('leerQR') }}" class="btn btn-success col-md-2">Actualizar página</a>
+                        </div>
+
+            </div>
+        </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="asistencia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">¡Aviso!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h3>Asistencia registrada correctamente</h3>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <div class="modal fade" id="asistenciaMal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">¡Aviso!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h3>El código es incorrecto, intente con otro</h3>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+
+
+{% block codigojs %}
+    <script src="/static/js/qrweb.js"></script>
+    <script type="text/javascript">
+        var veces=0
+        function onScanSuccess(qrCodeMessage) {
+            console.log("valor: " + qrCodeMessage)
+
+            console.log("veces"+veces)
+
+            if(veces==0)
+            {
+                console.log("veces"+veces)
+                document.getElementById('qr').value = qrCodeMessage;
+                document.getElementById("form1").submit();
+                veces=1
+
+            }
+            else
+            {
+                console.log("veces"+veces)
+                veces=1
+            }
+
+
+
+
+
+        }
+        function onScanError(errorMessage) {
+          //handle scan error
+        }
+
+
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250 });
+        html5QrcodeScanner.render(onScanSuccess, onScanError);
+    </script>
+
+
+
+    <script>
+      window.onload = function () {
+      console.log("function called...");
+      let params = new URLSearchParams(location.search);
+      var estado = params.get('estado');
+      console.log("estado"+estado)
+      if (estado==1)
+      {
+          console.log("Registro correcto")
+          var myModal = new bootstrap.Modal(document.getElementById('asistencia'), {})
+          myModal.toggle()
+
+
+
+
+      }
+      if(estado==2)
+          {
+              console.log("entre al erroneo"+estado)
+          var myModal2 = new bootstrap.Modal(document.getElementById('asistenciaMal'), {})
+          myModal2.toggle()
+          }
+
+      if(estado==null)
+      {
+          console.log("no hay nada")
+      }
+      else
+      {
+          console.log("Error")
+      }
+
+    }
+
+
+
+    </script>
+
+{% endblock %}

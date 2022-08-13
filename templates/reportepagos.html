@@ -1,7 +1,7 @@
 {% extends 'esqueleto.html' %}
 
 {% block titulo %}
-    <title>Listado de Clientes</title>
+    <title>Reporte de Pagos</title>
 {%  endblock %}
 
 {% block codigocss %}
@@ -13,7 +13,38 @@
 {%  block contenido %}
     <main>
 	    <div class="container-fluid px-4">
-            <h1 class="mt-4">Clientes BoxFit</h1>
+            <h1 class="mt-4">Reporte de pagos</h1>
+
+
+         <div class="card">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Busqueda por fechas</h5>
+								</div>
+								<div class="card-body">
+                                   <form method="post" action="{{url_for('reporte')}}">
+                                       <div class="row g-2">
+                                          <div class="col-md-5">
+                                                <div class="form-floating">
+                                                  <input type="date" class="form-control" name="fechainicial" required>
+                                                  <label for="floatingInputGrid">Fecha inicial</label>
+                                                </div>
+                                          </div>
+                                          <div class="col-md-5">
+                                                <div class="form-floating">
+                                                  <input type="date" class="form-control" name="fechafinal" required>
+                                                  <label >Fecha final</label>
+                                                </div>
+                                          </div>
+                                          <div class="col-md-2">
+                                            <div class="d-grid gap-2 mx-auto">
+                                              <button class="btn btn-success">Buscar</button>
+                                            </div>
+                                          </div>
+                                       </div>
+
+                                   </form>
+								</div>
+							</div>
 
             <div class="card mb-4">
                             <div class="card-header">
@@ -26,14 +57,10 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>Nombre</th>
-                                            <th>Dirección</th>
-                                            <th>Correo</th>
                                             <th>Teléfono</th>
-                                            <th>Disciplina</th>
-                                            <th>Horario</th>
-                                            <th>Colegiatura</th>
-                                            <th>Fecha de Inscripción</th>
-                                            <th>Historial de Pago</th>
+                                            <th>Importe</th>
+                                            <th>Observación</th>
+                                            <th>Fecha</th>
 
 
 
@@ -42,21 +69,16 @@
                                     </thead>
                                     <tbody>
                                             {% set contador=namespace(value=1) %}
-                                            {% for persona in lista_usuarios_completa %}
+                                            {% for persona in lista_de_pagos %}
 
                                                  <tr>
                                                         <td>{{ contador.value }}</td>
                                                         <td>{{ persona.nombre }} {{ persona.apellido }}</td>
-                                                        <td>{{ persona.direccion }}</td>
-                                                        <td>{{ persona.correo }}</td>
                                                         <td>{{ persona.telefono }}</td>
-                                                        <td>{{ persona.actividad }}</td>
-                                                        <td>{{ persona.horario }}</td>
-                                                        <td>${{ persona.precio }}</td>
-                                                        <td>{{ persona.fecha_inicio }}</td>
-                                                        <td>
-                                                            <a href="{{ url_for('historial',codigo=persona.codigo)}}" class="btn btn-success">Consultar</a>
-                                                        </td>
+                                                        <td>${{ persona.importe }}</td>
+                                                        <td>{{ persona.observaciones }}</td>
+                                                        <td>{{ persona.fecha }}</td>
+
 
 
 
@@ -70,16 +92,14 @@
                                     <tfoot>
 
                                         <tr>
-                                            <th>No.</th>
+                                             <th>No.</th>
                                             <th>Nombre</th>
-                                            <th>Dirección</th>
-                                            <th>Correo</th>
                                             <th>Teléfono</th>
-                                            <th>Disciplina</th>
-                                            <th>Horario</th>
-                                            <th>Colegiatura</th>
-                                            <th>Fecha de Inscripción</th>
-                                            <th>Historial de Pago</th>
+                                            <th>Importe</th>
+                                            <th>Observación</th>
+                                            <th>Fecha</th>
+
+
                                         </tr>
 
 

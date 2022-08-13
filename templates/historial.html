@@ -1,0 +1,202 @@
+{% extends 'esqueleto.html' %}
+{% block titulo %}
+    <title>Historial de Pagos</title>
+{%  endblock %}
+
+{% block codigocss %}
+
+{% endblock %}
+
+
+{%  block contenido %}
+	<div class="main">
+
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3">Historial de Pagos</h1>
+
+					<div class="row">
+						<div class="col-md-4 col-xl-3">
+							<div class="card mb-3">
+								<div class="card-header">
+									<h5 class="card-title mb-0">{{ datos_persona[4] }} {{ datos_persona[1] }}</h5>
+								</div>
+								<div class="card-body text-center">
+									<img src="{{ ruta_url }}" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="50%" />
+
+
+
+								</div>
+								<hr class="my-0" />
+
+
+								<div class="card-body">
+									<h5 class="h6 card-title">Datos personales</h5>
+									<ul class="list-unstyled mb-0">
+										<li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> {{ datos_persona[3] }}</li>
+
+										<li class="mb-1"><span data-feather="mail" class="feather-sm me-1"></span>{{ datos_persona[2] }}</li>
+										<li class="mb-1"><span data-feather="phone" class="feather-sm me-1"></span> {{ datos_persona[5] }}</li>
+									</ul>
+								</div>
+                                <hr class="my-0" />
+                                <div class="card-body">
+									<h5 class="h6 card-title">Actividades</h5>
+									<ul class="list-unstyled mb-0">
+
+
+										<li class="mb-1"><span data-feather="calendar" class="feather-sm me-1"></span><strong>Fecha de Inicio:</strong> {{ actividad_persona[1] }}</li>
+                                        <li class="mb-1"><span data-feather="dollar-sign" class="feather-sm me-1"></span><strong>Costo de Inscripción:</strong> ${{ actividad_persona[3] }}</li>
+										<li class="mb-1"><span data-feather="activity" class="feather-sm me-1"></span><strong>Actividad:</strong> {{ actividad_persona[0] }}</li>
+                                        <li class="mb-1"><span data-feather="watch" class="feather-sm me-1"></span><strong>Horario:</strong> {{ actividad_persona[2] }}</li>
+                                        <li class="mb-1"><span data-feather="dollar-sign" class="feather-sm me-1"></span><strong>Colegiatura:</strong> ${{ actividad_persona[4] }}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-8 col-xl-9">
+							<div class="card">
+								<div class="card-header">
+
+									<h5 class="card-title mb-0">Pagos realizados</h5>
+								</div>
+								<div class="card-body h-100">
+
+
+
+                                <!-- Condicion de alert-->
+                                {% if historial_pagos[0]==1  %}
+                                        <div class="alert alert-info" role="alert">
+                                                <p class="fw-bold text-center ">Pagos al corriente</p>
+                                                <p>Días restantes del próximo pago : {{ historial_pagos[1] }}</p>
+                                        </div>
+                                {% elif historial_pagos[0]==2 %}
+                                       <div class="alert alert-success" role="alert">
+                                                <p>Enhorabuena presenta un saldo a favor</p>
+                                        </div>
+                                {% elif historial_pagos[0]==3 %}
+                                        <div class="alert alert-danger" role="alert">
+                                                <p><b>Aviso</b>: Presenta un saldo deudor de ${{ '%0.2f'| format(historial_pagos[3]|float)  }}</p>
+                                                <p>Realizar pago de forma inmediata</p>
+
+
+
+                                        </div>
+
+                                {% endif %}
+
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">Fecha</th>
+                                      <th scope="col">Importe</th>
+                                      <th scope="col">Observaciones</th>
+                                      <th scope="col">Opciones</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+
+                                        {% set contador=namespace(value=1) %}
+                                            {% for pagos in lista_pagos %}
+
+                                                 <tr>
+                                                        <td>{{ contador.value }}</td>
+                                                        <td>{{ pagos.fecha }}</td>
+                                                        <td>${{ pagos.importe }}</td>
+                                                        <td>{{ pagos.observaciones }}</td>
+
+                                                </tr>
+                                            {% set contador.value=contador.value + 1 %}
+                                            {% endfor %}
+
+
+                                        {% if contador.value>1 %}
+                                                <tr>
+
+                                                <td>{{ contador.value  }}</td>
+                                                <td>{{ actividad_persona[1] }}</td>
+                                                <td>${{ actividad_persona[4] }}</td>
+                                                <td>Pago de la primer mensualidad</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ contador.value + 1 }}</td>
+                                                <td>{{ actividad_persona[1] }}</td>
+                                                <td>$ {{ actividad_persona[3] }}</td>
+                                                <td>Costo de Inscripción</td>
+                                            </tr>
+                                        {% else %}
+                                                <td>1</td>
+                                                <td>{{ actividad_persona[1] }}</td>
+                                                <td>${{ actividad_persona[4] }}</td>
+                                                <td>Pago de la primer mensualidad</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>{{ actividad_persona[1] }}</td>
+                                                <td>$ {{ actividad_persona[3] }}</td>
+                                                <td>Costo de Inscripción</td>
+                                        {% endif %}
+
+
+
+                                  </tbody>
+                                </table>
+
+
+
+
+
+
+
+								</div>
+							</div>
+                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              Registrar pago
+                            </button>
+						</div>
+
+
+					</div>
+
+				</div>
+			</main>
+
+		</div>
+
+
+    <!-- ventana modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Registro de pago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{url_for('registroPagos')}}">
+            <div class="mb-3">
+                <input type="hidden" name="codigo" value="{{ codigo_persona }}">
+              <label  class="form-label">Importe</label>
+              <input type="number" step="any" class="form-control" id="importe" name="importe" placeholder="Cantidad a recibir" required>
+            </div>
+            <div class="mb-3">
+              <label  class="form-label">Observaciones</label>
+              <textarea class="form-control" min="0" name="observaciones" rows="3"></textarea>
+            </div>
+            <button class="btn btn-success">Guardar</button>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

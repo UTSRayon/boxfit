@@ -1,0 +1,147 @@
+{% extends 'esqueleto.html' %}
+
+{% block titulo %}
+    <title>Reporte de Pagos</title>
+{%  endblock %}
+
+{% block codigocss %}
+     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="static/css/estilos.css" rel="stylesheet">
+{% endblock %}
+
+
+{%  block contenido %}
+    <main>
+	    <div class="container-fluid px-4">
+            <h1 class="mt-4">Reporte de Asistencia</h1>
+
+
+         <div class="card">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Busqueda por fechas</h5>
+								</div>
+								<div class="card-body">
+                                   <form method="post" action="{{url_for('reporteasistencia')}}">
+                                       <div class="row g-2">
+                                          <div class="col-md-5">
+                                                <div class="form-floating">
+                                                  <input type="date" class="form-control" name="fechainicial" required>
+                                                  <label for="floatingInputGrid">Fecha inicial</label>
+                                                </div>
+                                          </div>
+                                          <div class="col-md-5">
+                                                <div class="form-floating">
+                                                  <input type="date" class="form-control" name="fechafinal" required>
+                                                  <label >Fecha final</label>
+                                                </div>
+                                          </div>
+                                          <div class="col-md-2">
+                                            <div class="d-grid gap-2 mx-auto">
+                                              <button class="btn btn-success">Buscar</button>
+                                            </div>
+                                          </div>
+                                       </div>
+
+                                   </form>
+								</div>
+							</div>
+
+            <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Listado de clientes
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Nombre</th>
+                                            <th>Teléfono</th>
+                                            <th>Hora de Entrada</th>
+                                            <th>Fecha</th>
+                                            <th>Imagen</th>
+
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            {% set contador=namespace(value=1) %}
+                                            {% for persona in resultado %}
+
+                                                 <tr>
+                                                        <td>{{ contador.value }}</td>
+                                                        <td>{{ persona.nombre }} {{ persona.apellido }}</td>
+                                                        <td>{{ persona.telefono }}</td>
+                                                        <td>{{ persona.hora }}</td>
+                                                        <td>{{ persona.fecha }}</td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#{{ persona.ruta }}{{ contador.value }}">
+                                                              Ver imagen
+                                                            </button>
+                                                        </td>
+                                                         <div class="modal fade" id="{{ persona.ruta }}{{ contador.value }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                              <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                  <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">{{ persona.nombre }} {{ persona.apellido }}</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                  </div>
+                                                                  <div class="modal-body">
+                                                                    <img src="{{ lista_ruta_image[contador.value - 1 ] }}" class="img-fluid" alt="...">
+                                                                  </div>
+                                                                  <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                         </div>
+
+
+
+                                                </tr>
+                                            {% set contador.value=contador.value + 1 %}
+                                            {% endfor %}
+
+
+
+                                    </tbody>
+                                    <tfoot>
+
+                                        <tr>
+                                             <th>No.</th>
+                                            <th>Nombre</th>
+                                            <th>Teléfono</th>
+                                            <th>Hora de Entrada</th>
+                                            <th>Fecha</th>
+                                            <th>Imagen</th>
+
+
+                                        </tr>
+
+
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block codigojs %}
+
+          <script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+     <script src="/static/js/datatables-simple-demo.js"></script>
+
+{% endblock %}
