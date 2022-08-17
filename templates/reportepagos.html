@@ -69,6 +69,7 @@
                                     </thead>
                                     <tbody>
                                             {% set contador=namespace(value=1) %}
+                                            {% set total=namespace(value=0) %}
                                             {% for persona in lista_de_pagos %}
 
                                                  <tr>
@@ -84,7 +85,11 @@
 
                                                 </tr>
                                             {% set contador.value=contador.value + 1 %}
+                                            {% set total.value= (total.value|float) + (persona.importe|float)  %}
+
                                             {% endfor %}
+
+
 
 
 
@@ -105,6 +110,7 @@
 
                                     </tfoot>
                                 </table>
+                              <p class="fw-bolder float-sm-end">Total: ${{ total.value }}</p>
                             </div>
                         </div>
 

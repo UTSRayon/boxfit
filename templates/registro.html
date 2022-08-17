@@ -50,17 +50,18 @@
 						<div class="row">
 
                             <!-- primera columna -->
-                            <div class="col-12 col-lg-6"><!-- segunda columna d ela foto -->
+                            <div class="col-12 col-md-4"><!-- segunda columna d ela foto -->
 
-                                <div class="m-5" id="results"><h4 class="text-muted">Su imagen aparecerá aquí</h4></div>
+                                <div class="" id="results"><h4 class="text-muted">Su imagen aparecerá aquí</h4></div>
 
-                                <div class="m-5" id="my_camera"></div>
+                                <div class="d-flex p-2 bd-highlight" id="my_camera" style="width:340px; height:240px;"></div>
+                                <br>
                                 <form>
                                     <input type=button class="btn btn-success" value="Tomar Fotografía" onClick="take_snapshot()">
                                 </form>
                             </div>
                             <!-- segunda columna-->
-							<div class="col-12 col-lg-6">
+							<div class="col-12 col-md-8">
 								<div class="card">
 									<div class="card-header">
 										<h5 class="card-title mb-0">Nombre</h5>
@@ -127,9 +128,13 @@
 {% block codigojs %}
     	<script type="text/javascript" src="static/js/webcam.min.js"></script>
         <script >
-            Webcam.set({
-                width: 590,
-                height: 440,
+
+
+
+            Webcam.set('constraints',{ //set the constraints and initialize camera device (0 or 1 for back and front - varies which is which depending on device)
+                facingMode: "environment",
+                width: 340,
+                height: 240,
                 image_format: 'jpeg',
                 jpeg_quality: 100
             });
@@ -141,7 +146,7 @@
                 Webcam.snap( function(data_uri) {
                     // display results in page
                     document.getElementById('results').innerHTML =
-                        '<h4 class="text-muted">La fotografía del usuario:</h4>' +
+
                         '<img name="canvasimg" id="canvasimg" src="'+data_uri+'"/ >';
                   //  console.log("valor:"+data_uri)
 

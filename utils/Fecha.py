@@ -1,25 +1,29 @@
 from datetime import datetime
-import calendar
 
+import calendar
+import pytz
 class Fecha:
 
 
 
     @staticmethod
     def obtenerFechaConHora():
-        fecha=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        tz = pytz.timezone('America/Mexico_City')
+        fecha=datetime.now(tz=tz).strftime('%Y-%m-%d %H:%M:%S')
         return fecha
 
 
     @staticmethod
     def obtenerFechaSinHora():
-        fecha=datetime.now().strftime('%Y-%m-%d')
+        tz = pytz.timezone('America/Mexico_City')
+        fecha=datetime.now(tz=tz).strftime('%Y-%m-%d')
 
         return fecha
 
     @staticmethod
     def obtenerSoloHora():
-        fecha=datetime.now().strftime('%H:%M:%S')
+        tz = pytz.timezone('America/Mexico_City')
+        fecha=datetime.now(tz=tz).strftime('%H:%M:%S')
         return fecha
 
 
@@ -52,19 +56,26 @@ class Fecha:
 
 
             elif fecha_anio_actual == fecha_anio_ingreso:
+
                 cantidad_meses = fecha_mes_actual - fecha_mes_ingreso
-                print("cantidad  Meses: ",cantidad_meses)
-                if cantidad_meses == 0:
+
+                #validar si ya ha llegado al proximo mes de corte
+                if cantidad_meses>1 and int(fecha_dia_actual-fecha_dia_ingreso)<0:
+                    cantidad_meses=cantidad_meses-1
+
+                elif cantidad_meses == 0:
                     cantidad_meses = 1
 
-                if cantidad_meses==1 and int(fecha_dia_actual-fecha_dia_ingreso)>0:
+                elif cantidad_meses==1 and int(fecha_dia_actual-fecha_dia_ingreso)>0:
                     cantidad_meses=2
 
-                resultados = Fecha().contarMesesPagos(lista_pagos)
+                elif float(bandera)<0 and cantidad_meses==1 and int(fecha_dia_actual-fecha_dia_ingreso)>0: #solo primer abono pero aun estoy en el tiempo
+                    cantidad_meses=1
 
+                else:
+                    print("sin meses error")
 
-                if float(bandera)<0 and int(fecha_dia_actual-fecha_dia_ingreso)>0:
-                    cantidad_meses=2
+                resultados = Fecha().contarMesesPagos(lista_pagos)  # cuenta cuantos meses se han pagado y el total
 
                 print("Can mes: ",cantidad_meses)
                 #ver si es un abono al nodo abono o su primer colegiatura
@@ -74,13 +85,11 @@ class Fecha:
                 #validar si la lista viene con solo un pago
                 print("Longitud",len(lista_pagos))
                 print("bandera",bandera)
-                if len(lista_pagos) >1 or float(bandera)>0:
-                    print("Vivo")
+                if len(lista_pagos) >1 or float(bandera)>0: #ha hecho mas de un pago
                     numero_abonos = int(resultados[0]) + 1
                     total_abonos = float(resultados[1]) + float(primera_colegiatura)
 
-                else:
-                    print("muerto")
+                else: #solo tiene el pago de inscripcion por defecto
                     numero_abonos=int(resultados[0])
                     total_abonos = float(resultados[1])*-1
 

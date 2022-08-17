@@ -25,11 +25,11 @@ from firebase import Firebase
 
 #variable de configuracion
 config={
-  "apiKey": "AIzaSyBTY_jIHQE5Khyq0__BNhxylrApmYqSMZM",
-  "authDomain": "boxfit-d57c1.firebaseapp.com",
-  "databaseURL": "https://boxfit-d57c1-default-rtdb.firebaseio.com",
-  "storageBucket": "boxfit-d57c1.appspot.com",
-  "projectId": "boxfit-d57c1",
+  "apiKey": "AIzaSyBTY_jIHQE5Khyq0_SMZM",
+  "authDomain": "boxfitd57c1.firebaseapp.com",
+  "databaseURL": "https://boxfit--default-rtdb.firebaseio.com",
+  "storageBucket": "boxfit-d57appspot.com",
+  "projectId": "boxfit-d571",
   #"messagingSenderId": "730838439699",
   #"appId": "1:730838439699:web:bce749eb12d63a7ee3ace6",
   #"serviceAccount": "serviceAccountKey.json"
@@ -266,62 +266,66 @@ def historial(codigo):
 
 @app.route("/listaclientes")
 def listaclientes():
-    datos_completos = db.child("clientes").get().val()
-    indices=datos_completos
-    datos_completos = list(datos_completos.values())
-    #lista = list(datos_completos[0].values())
-    #print("datos completo: ",lista[0]["actividad"])
-    lista_completa=[]
-    contador=0
-    contador2=0
-    indices=list(indices.keys())
-    #print("Lista usuarios: ",indices[1])
-    #lista de usuarios completa
-    lista_usuarios_completa=[]
-    for x in datos_completos:
-        lista_actividades=[]
-        lista_informacion=[]
-
-        for y in list(datos_completos[contador2].values()):
-            if contador==0:
-                lista_nueva=list(y.values())
-                #print("nueva lista",lista_nueva)
-                for k in lista_nueva:
-                 #   print("res: ",k)
-                    lista_actividades.append(k)
-            else:
-                #print("---<",y)
-                lista_informacion.append(y)
-                #print("contador:",contador)
-
-
-            contador=contador+1
-      #  print("Lista Información: ", lista_informacion)
-       # print("Lista actividades: ", lista_actividades)
-        usuario = Usuario()
-        usuario.apellido = lista_informacion[0]
-        usuario.correo = lista_informacion[1]
-        usuario.direccion = lista_informacion[2]
-        usuario.nombre = lista_informacion[3]
-        usuario.telefono = lista_informacion[4]
-        usuario.actividad = lista_actividades[0]
-        usuario.fecha_inicio = lista_actividades[1]
-        usuario.horario = lista_actividades[2]
-        usuario.inscripcion = lista_actividades[3]
-        usuario.precio = lista_actividades[4]
-        usuario.codigo=indices[contador2]
-
-        lista_usuarios_completa.append(usuario)
-
+    try:
+        datos_completos = db.child("clientes").get().val()
+        indices=datos_completos
+        datos_completos = list(datos_completos.values())
+        #lista = list(datos_completos[0].values())
+        #print("datos completo: ",lista[0]["actividad"])
+        lista_completa=[]
         contador=0
-        contador2=contador2+1
-    contador2=0
+        contador2=0
+        indices=list(indices.keys())
+        #print("Lista usuarios: ",indices[1])
+        #lista de usuarios completa
+        lista_usuarios_completa=[]
+        for x in datos_completos:
+            lista_actividades=[]
+            lista_informacion=[]
+
+            for y in list(datos_completos[contador2].values()):
+                if contador==0:
+                    lista_nueva=list(y.values())
+                    #print("nueva lista",lista_nueva)
+                    for k in lista_nueva:
+                     #   print("res: ",k)
+                        lista_actividades.append(k)
+                else:
+                    #print("---<",y)
+                    lista_informacion.append(y)
+                    #print("contador:",contador)
+
+
+                contador=contador+1
+          #  print("Lista Información: ", lista_informacion)
+           # print("Lista actividades: ", lista_actividades)
+            usuario = Usuario()
+            usuario.apellido = lista_informacion[0]
+            usuario.correo = lista_informacion[1]
+            usuario.direccion = lista_informacion[2]
+            usuario.nombre = lista_informacion[3]
+            usuario.telefono = lista_informacion[4]
+            usuario.actividad = lista_actividades[0]
+            usuario.fecha_inicio = lista_actividades[1]
+            usuario.horario = lista_actividades[2]
+            usuario.inscripcion = lista_actividades[3]
+            usuario.precio = lista_actividades[4]
+            usuario.codigo=indices[contador2]
+
+            lista_usuarios_completa.append(usuario)
+
+            contador=0
+            contador2=contador2+1
+        contador2=0
 
 
 
 
 
-    return render_template("listado_clientes.html",lista_usuarios_completa=lista_usuarios_completa)
+        return render_template("listado_clientes.html",lista_usuarios_completa=lista_usuarios_completa)
+    except:
+        print("sin datos")
+        return render_template("listado_clientes.html")
 
 @app.route('/altapersona')
 def altapersona():  # put application's code here

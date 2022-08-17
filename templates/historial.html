@@ -101,6 +101,7 @@
                                   <tbody>
 
                                         {% set contador=namespace(value=1) %}
+                                          {% set total=namespace(value=0) %}
                                             {% for pagos in lista_pagos %}
 
                                                  <tr>
@@ -111,6 +112,7 @@
 
                                                 </tr>
                                             {% set contador.value=contador.value + 1 %}
+                                            {% set total.value= (total.value|float) + (pagos.importe|float)  %}
                                             {% endfor %}
 
 
@@ -121,11 +123,13 @@
                                                 <td>{{ actividad_persona[1] }}</td>
                                                 <td>${{ actividad_persona[4] }}</td>
                                                 <td>Pago de la primer mensualidad</td>
+                                                 {% set total.value= (total.value|float) + (actividad_persona[4]|float)  %}
                                             </tr>
                                             <tr>
                                                 <td>{{ contador.value + 1 }}</td>
                                                 <td>{{ actividad_persona[1] }}</td>
                                                 <td>$ {{ actividad_persona[3] }}</td>
+                                                {% set total.value= (total.value|float) + (actividad_persona[3]|float)  %}
                                                 <td>Costo de Inscripción</td>
                                             </tr>
                                         {% else %}
@@ -133,11 +137,13 @@
                                                 <td>{{ actividad_persona[1] }}</td>
                                                 <td>${{ actividad_persona[4] }}</td>
                                                 <td>Pago de la primer mensualidad</td>
+                                            {% set total.value= (total.value|float) + (actividad_persona[4]|float)  %}
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>{{ actividad_persona[1] }}</td>
                                                 <td>$ {{ actividad_persona[3] }}</td>
+                                            {% set total.value= (total.value|float) + (actividad_persona[3]|float)  %}
                                                 <td>Costo de Inscripción</td>
                                         {% endif %}
 
@@ -145,7 +151,7 @@
 
                                   </tbody>
                                 </table>
-
+                                         <p class="fw-bolder col-sm-4 offset-4">Total: ${{ total.value }}</p>
 
 
 
